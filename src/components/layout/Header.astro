@@ -1,0 +1,94 @@
+---
+import { mainNav } from '../../config/navigation';
+import { site } from '../../config/site';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-brand-black/95 backdrop-blur-sm border-b border-brand-grey-700">
+  <div class="container-site">
+    <nav class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a
+        href="/"
+        class="font-heading font-bold text-brand-white text-lg tracking-tight hover:text-brand-red transition-colors duration-200"
+        style="font-family: var(--font-heading);"
+      >
+        {site.name}
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-8">
+        {mainNav.map((item) => (
+          <a
+            href={item.href}
+            class="text-sm text-brand-grey-100 hover:text-brand-white transition-colors duration-200"
+            style="font-family: var(--font-heading); font-weight: 700; letter-spacing: 0.01em;"
+          >
+            {item.label}
+          </a>
+        ))}
+        <a href="/contact" class="btn btn-primary text-sm px-4 py-2">
+          Book Matt
+        </a>
+      </div>
+
+      <!-- Mobile: Book CTA + hamburger -->
+      <div class="flex md:hidden items-center gap-3">
+        <a href="/contact" class="btn btn-primary text-sm px-3 py-2">
+          Book
+        </a>
+        <button
+          id="mobile-menu-btn"
+          class="text-brand-white p-2 -mr-2"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          <svg id="icon-open" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="19" y2="6" />
+            <line x1="3" y1="11" x2="19" y2="11" />
+            <line x1="3" y1="16" x2="19" y2="16" />
+          </svg>
+          <svg id="icon-close" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden">
+            <line x1="4" y1="4" x2="18" y2="18" />
+            <line x1="18" y1="4" x2="4" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-brand-grey-700 bg-brand-black"
+  >
+    <div class="container-site py-4 flex flex-col gap-1">
+      {mainNav.map((item) => (
+        <a
+          href={item.href}
+          class="block py-3 text-brand-grey-100 hover:text-brand-white border-b border-brand-grey-900 transition-colors duration-200"
+          style="font-family: var(--font-heading); font-weight: 700;"
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<!-- Spacer so content doesn't sit under fixed header -->
+<div class="h-16"></div>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  btn?.addEventListener('click', () => {
+    const isOpen = menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden', !isOpen);
+    iconOpen?.classList.toggle('hidden', isOpen ?? false);
+    iconClose?.classList.toggle('hidden', !(isOpen ?? false));
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>

@@ -1,0 +1,110 @@
+---
+// Netlify Forms — booking inquiry form
+// In production, Netlify detects the data-netlify attribute and handles submissions
+---
+
+<form
+  name="booking"
+  method="POST"
+  action="/thank-you"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="flex flex-col gap-5"
+>
+  <!-- Netlify hidden fields -->
+  <input type="hidden" name="form-name" value="booking" />
+
+  <!-- Honeypot (hidden from humans, visible to bots) -->
+  <div class="hidden" aria-hidden="true">
+    <label for="bot-field">Leave this empty</label>
+    <input id="bot-field" name="bot-field" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <!-- Name -->
+  <div>
+    <label for="name" class="label">Name *</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      required
+      placeholder="Your name"
+      class="field"
+      autocomplete="name"
+    />
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label for="email" class="label">Email *</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      required
+      placeholder="you@example.com"
+      class="field"
+      autocomplete="email"
+    />
+  </div>
+
+  <!-- Organization / Venue -->
+  <div>
+    <label for="organization" class="label">Organization / Venue</label>
+    <input
+      id="organization"
+      name="organization"
+      type="text"
+      placeholder="Comedy club, company name, festival…"
+      class="field"
+    />
+  </div>
+
+  <!-- Event type -->
+  <div>
+    <label for="event-type" class="label">Event Type</label>
+    <select id="event-type" name="event_type" class="field">
+      <option value="" disabled selected>Select type…</option>
+      <option value="club">Comedy Club / Open Mic</option>
+      <option value="festival">Festival</option>
+      <option value="corporate">Corporate Event</option>
+      <option value="private">Private Show</option>
+      <option value="other">Other</option>
+    </select>
+  </div>
+
+  <!-- Date -->
+  <div>
+    <label for="event-date" class="label">Date (approximate)</label>
+    <input
+      id="event-date"
+      name="event_date"
+      type="text"
+      placeholder="e.g. May 2026, or flexible"
+      class="field"
+    />
+  </div>
+
+  <!-- Message -->
+  <div>
+    <label for="message" class="label">Message *</label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      rows="5"
+      placeholder="Tell me about the event, what you're looking for, anything useful."
+      class="field resize-none"
+    ></textarea>
+  </div>
+
+  <!-- Submit -->
+  <div class="pt-2">
+    <button type="submit" class="btn btn-primary w-full sm:w-auto">
+      Send Inquiry →
+    </button>
+    <p class="text-brand-grey-400 text-xs mt-3">
+      Usually hear back within a week. Sometimes sooner. It depends.
+    </p>
+  </div>
+</form>

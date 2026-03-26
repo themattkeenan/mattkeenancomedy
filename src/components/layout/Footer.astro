@@ -1,0 +1,115 @@
+---
+import { footerNav } from '../../config/navigation';
+import { site } from '../../config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-brand-grey-700 bg-brand-grey-900 section-sm">
+  <div class="container-site">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+
+      <!-- Left: Identity -->
+      <div class="flex flex-col gap-3 max-w-xs">
+        <a
+          href="/"
+          class="font-heading font-bold text-brand-white text-lg hover:text-brand-red transition-colors duration-200"
+          style="font-family: var(--font-heading);"
+        >
+          {site.name}
+        </a>
+        <p class="text-sm text-brand-grey-400 leading-relaxed">
+          Stand-up comedian.<br />
+          Touring nationally.
+        </p>
+        <!-- Social links -->
+        <div class="flex items-center gap-4 mt-1">
+          {site.socials.instagram && (
+            <a
+              href={site.socials.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand-grey-400 hover:text-brand-white transition-colors duration-200"
+              aria-label="Instagram"
+            >
+              IG
+            </a>
+          )}
+          {site.socials.youtube && (
+            <a
+              href={site.socials.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand-grey-400 hover:text-brand-white transition-colors duration-200"
+              aria-label="YouTube"
+            >
+              YT
+            </a>
+          )}
+          {site.socials.tiktok && (
+            <a
+              href={site.socials.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand-grey-400 hover:text-brand-white transition-colors duration-200"
+              aria-label="TikTok"
+            >
+              TT
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Right: Nav + Contact -->
+      <div class="flex flex-col sm:flex-row gap-8">
+        <!-- Site nav -->
+        <div>
+          <p class="text-xs text-brand-grey-400 uppercase tracking-widest mb-3" style="font-family: var(--font-mono);">
+            Site
+          </p>
+          <ul class="flex flex-col gap-2">
+            {footerNav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm text-brand-grey-100 hover:text-brand-white transition-colors duration-200"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Contact info -->
+        <div>
+          <p class="text-xs text-brand-grey-400 uppercase tracking-widest mb-3" style="font-family: var(--font-mono);">
+            Contact
+          </p>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a href={`mailto:${site.email}`} class="text-sm text-brand-grey-100 hover:text-brand-white transition-colors duration-200">
+                Booking
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${site.pressEmail}`} class="text-sm text-brand-grey-100 hover:text-brand-white transition-colors duration-200">
+                Press
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-10 pt-6 border-t border-brand-grey-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+      <p class="text-xs text-brand-grey-400" style="font-family: var(--font-mono);">
+        © {year} {site.name}
+      </p>
+      <p class="text-xs text-brand-grey-400">
+        Based in {site.location}
+      </p>
+    </div>
+  </div>
+</footer>

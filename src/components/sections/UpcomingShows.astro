@@ -1,0 +1,68 @@
+---
+import { getUpcomingShows, formatShowDate } from '../../data/shows';
+
+const upcoming = getUpcomingShows().slice(0, 4);
+---
+
+{upcoming.length > 0 && (
+  <section class="section bg-brand-grey-900 border-y border-brand-grey-700">
+    <div class="container-site">
+      <div class="flex items-end justify-between mb-8">
+        <h2 class="text-2xl md:text-3xl font-heading font-bold text-brand-white" style="font-family: var(--font-heading);">
+          Catch a show
+        </h2>
+        <a href="/shows" class="link-arrow text-sm text-brand-grey-400 hover:text-brand-white">
+          All shows →
+        </a>
+      </div>
+
+      <ul class="divide-y divide-brand-grey-700">
+        {upcoming.map((show) => {
+          const date = formatShowDate(show.date);
+          return (
+            <li class="flex items-center justify-between py-5 gap-4">
+              <div class="flex items-center gap-6">
+                <!-- Date block -->
+                <div class="flex-shrink-0 text-center w-12">
+                  <div class="text-brand-red font-mono text-xs uppercase tracking-wider" style="font-family: var(--font-mono);">
+                    {date.month}
+                  </div>
+                  <div class="text-brand-white font-heading font-bold text-2xl leading-none" style="font-family: var(--font-heading);">
+                    {date.day}
+                  </div>
+                </div>
+                <!-- Show info -->
+                <div>
+                  <div class="text-brand-white font-heading font-bold text-base" style="font-family: var(--font-heading);">
+                    {show.venue}
+                  </div>
+                  <div class="text-brand-grey-400 text-sm">
+                    {show.city}{show.state ? `, ${show.state}` : ''}
+                    {show.soldOut && <span class="ml-2 text-brand-red text-xs uppercase tracking-wide" style="font-family: var(--font-mono);">Sold out</span>}
+                  </div>
+                </div>
+              </div>
+
+              {/* Ticket CTA */}
+              {show.ticketUrl && !show.soldOut && (
+                <a
+                  href={show.ticketUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-ghost-red text-sm px-4 py-2 flex-shrink-0"
+                >
+                  Tickets →
+                </a>
+              )}
+              {show.soldOut && (
+                <span class="text-brand-grey-400 text-sm flex-shrink-0" style="font-family: var(--font-mono);">
+                  Sold out
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+)}

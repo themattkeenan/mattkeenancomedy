@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VideoCard from '../components/ui/VideoCard.astro';
+import { media, getClipsByType } from '../data/media';
+import { site } from '../config/site';
+
+const allClips = media;
+const hasMedia = allClips.length > 0;
+
+const typeCounts = {
+  standup: getClipsByType('standup').length,
+  'short-form': getClipsByType('short-form').length,
+  interview: getClipsByType('interview').length,
+  podcast: getClipsByType('podcast').length,
+};
+const hasFilters = Object.values(typeCounts).filter((n) => n > 0).length > 1;
+---
+
+<BaseLayout
+  title="Media"
+  description="Stand-up clips, short-form content, and more from comedian Matt Keenan."
+>
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="container-site">
+      <p class="text-brand-red text-xs uppercase tracking-widest mb-4" style="font-family: var(--font-mono);">
+        Watch
+      </p>
+      <h1
+        class="font-heading font-bold text-brand-white mb-3"
+        style="font-family: var(--font-heading); font-size: clamp(2.5rem, 6vw, 4.5rem);"
+      >
+        Media
+      </h1>
+      <p class="text-brand-grey-400 text-lg">
+        The clips. The bits. The evidence.
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container-site">
+      {hasMedia ? (
+        <>
+          {/* Filter tabs — only shown if multiple types exist */}
+          {hasFilters && (
+            <div class="flex flex-wrap gap-2 mb-8" id="media-filters">
+              <button
+                class="btn btn-ghost text-sm px-4 py-2 active-filter"
+                data-filter="all"
+              >
+                All
+              </button>
+              {typeCounts.standup > 0 && (
+                <button class="btn btn-ghost text-sm px-4 py-2" data-filter="standup">
+                  Stand-up
+                </button>
+              )}
+              {typeCounts['short-form'] > 0 && (
+                <button class="btn btn-ghost text-sm px-4 py-2" data-filter="short-form">
+                  Short-form
+                </button>
+              )}
+              {typeCounts.interview > 0 && (
+                <button class="btn btn-ghost text-sm px-4 py-2" data-filter="interview">
+                  Interviews
+                </button>
+              )}
+              {typeCounts.podcast > 0 && (
+                <button class="btn btn-ghost text-sm px-4 py-2" data-filter="podcast">
+                  Podcast
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Video grid */}
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="media-grid">
+            {allClips.map((clip) => (
+              <div data-type={clip.type}>
+                <VideoCard clip={clip} />
+              </div>
+            ))}
+          </div>
+
+          {/* External links */}
+          <div class="mt-12 pt-8 border-t border-brand-grey-700">
+            <p class="text-brand-grey-400 text-xs uppercase tracking-widest mb-4" style="font-family: var(--font-mono);">
+              Find me elsewhere
+            </p>
+            <div class="flex flex-wrap gap-4">
+              {site.socials.youtube && (
+                <a
+                  href={site.socials.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-ghost text-sm"
+                >
+                  YouTube Channel →
+                </a>
+              )}
+              {site.socials.tiktok && (
+                <a
+                  href={site.socials.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-ghost text-sm"
+                >
+                  TikTok →
+                </a>
+              )}
+              {site.socials.instagram && (
+                <a
+                  href={site.socials.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-ghost text-sm"
+                >
+                  Instagram →
+                </a>
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <!-- Empty state -->
+        <div class="max-w-md">
+          <p class="text-brand-white font-bold text-2xl mb-3" style="font-family: var(--font-heading);">
+            Clips coming soon.
+          </p>
+          <p class="text-brand-grey-400 mb-6">
+            They exist. We're just getting them up here. In the meantime:
+          </p>
+          <div class="flex flex-wrap gap-4">
+            {site.socials.youtube && (
+              <a href={site.socials.youtube} target="_blank" rel="noopener noreferrer" class="btn btn-ghost-red">
+                YouTube →
+              </a>
+            )}
+            {site.socials.instagram && (
+              <a href={site.socials.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+                Instagram →
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+{hasFilters && (
+  <script>
+    const filters = document.querySelectorAll('[data-filter]');
+    const items = document.querySelectorAll('[data-type]');
+
+    filters.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        // Update active state
+        filters.forEach((b) => b.classList.remove('active-filter', 'btn-primary'));
+        btn.classList.add('active-filter');
+
+        // Filter items
+        items.forEach((item) => {
+          const type = item.getAttribute('data-type');
+          const visible = filter === 'all' || type === filter;
+          (item as HTMLElement).style.display = visible ? '' : 'none';
+        });
+      });
+    });
+  </script>
+)}
+
+<style>
+  .active-filter {
+    border-color: var(--color-brand-red);
+    color: var(--color-brand-red);
+  }
+</style>

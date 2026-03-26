@@ -1,0 +1,87 @@
+---
+import type { MediaItem } from '../../data/media';
+import { getYouTubeThumbnail } from '../../data/media';
+
+interface Props {
+  clip: MediaItem;
+}
+
+const { clip } = Astro.props;
+const thumbnail = clip.thumbnailUrl || getYouTubeThumbnail(clip.embedUrl);
+const cardId = `video-card-${clip.id}`;
+---
+
+<div class="group" id={cardId}>
+  <!-- Thumbnail -->
+  <div class="relative aspect-video bg-brand-grey-700 overflow-hidden cursor-pointer card-thumb">
+    <img
+      src={thumbnail}
+      alt={clip.title}
+      width="480"
+      height="270"
+      loading="lazy"
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+    <!-- Red overlay on hover -->
+    <div class="absolute inset-0 bg-brand-red opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+    <!-- Play button -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="white">
+          <path d="M5 3.5l9 4.5-9 4.5V3.5z" />
+        </svg>
+      </div>
+    </div>
+    {clip.duration && (
+      <span
+        class="absolute bottom-2 right-2 bg-brand-black/80 text-brand-white text-xs px-2 py-0.5"
+        style="font-family: var(--font-mono);"
+      >
+        {clip.duration}
+      </span>
+    )}
+  </div>
+
+  <!-- Embed (hidden by default) -->
+  <div class="hidden aspect-video card-embed">
+    <iframe
+      src={clip.embedUrl}
+      title={clip.title}
+      width="100%"
+      height="100%"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      class="w-full h-full"
+      loading="lazy"
+    ></iframe>
+  </div>
+
+  <!-- Info -->
+  <div class="mt-3">
+    <p class="text-brand-white font-heading font-bold text-sm leading-snug" style="font-family: var(--font-heading);">
+      {clip.title}
+    </p>
+    {clip.description && (
+      <p class="text-brand-grey-400 text-xs mt-1 leading-relaxed line-clamp-2">
+        {clip.description}
+      </p>
+    )}
+    <span
+      class="text-brand-grey-400 text-xs mt-1 inline-block capitalize"
+      style="font-family: var(--font-mono);"
+    >
+      {clip.type.replace('-', ' ')}
+    </span>
+  </div>
+</div>
+
+<script define:vars={{ cardId }}>
+  const card = document.getElementById(cardId);
+  const thumb = card?.querySelector('.card-thumb');
+  const embed = card?.querySelector('.card-embed');
+
+  thumb?.addEventListener('click', () => {
+    thumb.classList.add('hidden');
+    embed?.classList.remove('hidden');
+  });
+</script>

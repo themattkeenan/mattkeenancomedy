@@ -1,0 +1,61 @@
+---
+import type { Show } from '../../data/shows';
+import { formatShowDate } from '../../data/shows';
+
+interface Props {
+  show: Show;
+}
+
+const { show } = Astro.props;
+const date = formatShowDate(show.date);
+---
+
+<li class="flex items-center justify-between py-5 gap-4 border-b border-brand-grey-700 last:border-0">
+  <div class="flex items-center gap-6">
+    <!-- Date block -->
+    <div class="flex-shrink-0 text-center w-12">
+      <div class="text-brand-red text-xs uppercase tracking-wider" style="font-family: var(--font-mono);">
+        {date.month}
+      </div>
+      <div class="text-brand-white font-bold text-2xl leading-none" style="font-family: var(--font-heading);">
+        {date.day}
+      </div>
+      <div class="text-brand-grey-400 text-xs" style="font-family: var(--font-mono);">
+        {date.year}
+      </div>
+    </div>
+
+    <!-- Show info -->
+    <div>
+      <div class="text-brand-white font-bold text-base" style="font-family: var(--font-heading);">
+        {show.venue}
+      </div>
+      <div class="text-brand-grey-400 text-sm">
+        {show.city}{show.state ? `, ${show.state}` : ''}
+        {show.country && show.country !== 'Canada' ? ` · ${show.country}` : ''}
+      </div>
+      {show.note && (
+        <div class="text-brand-grey-400 text-xs mt-0.5 italic">{show.note}</div>
+      )}
+      {show.soldOut && (
+        <span class="text-brand-red text-xs uppercase tracking-wide mt-1 inline-block" style="font-family: var(--font-mono);">
+          Sold out
+        </span>
+      )}
+    </div>
+  </div>
+
+  <!-- Ticket CTA -->
+  {show.ticketUrl && !show.soldOut ? (
+    <a
+      href={show.ticketUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-ghost-red text-sm px-4 py-2 flex-shrink-0"
+    >
+      Tickets →
+    </a>
+  ) : show.soldOut ? (
+    <span class="text-brand-grey-400 text-sm flex-shrink-0" style="font-family: var(--font-mono);">Sold out</span>
+  ) : null}
+</li>

@@ -1,0 +1,41 @@
+---
+interface Props {
+  heading?: string;
+  body?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const {
+  heading = 'Want to book a show?',
+  body = "Private events, corporate gigs, club nights — reach out and we'll figure it out.",
+  primaryLabel = 'Get in touch',
+  primaryHref = '/contact',
+  secondaryLabel = 'Press Kit',
+  secondaryHref = '/press',
+} = Astro.props;
+---
+
+<section class="section bg-brand-grey-900 border-y border-brand-grey-700">
+  <div class="container-site text-center">
+    <div class="relative inline-block mb-4">
+      <div class="absolute -top-1 -left-3 w-2 h-full bg-brand-red"></div>
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-white pl-2" style="font-family: var(--font-heading);">
+        {heading}
+      </h2>
+    </div>
+    <p class="text-brand-grey-100 text-lg max-w-md mx-auto mb-8 mt-4">
+      {body}
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a href={primaryHref} class="btn btn-primary">
+        {primaryLabel}
+      </a>
+      <a href={secondaryHref} class="btn btn-ghost">
+        {secondaryLabel}
+      </a>
+    </div>
+  </div>
+</section>

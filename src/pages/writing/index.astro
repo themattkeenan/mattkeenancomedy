@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WritingCard from '../../components/ui/WritingCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('writing', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout
+  title="Writing"
+  description="Observations, bits, and essays from comedian Matt Keenan. Mostly true."
+>
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="container-site">
+      <p class="text-brand-red text-xs uppercase tracking-widest mb-4" style="font-family: var(--font-mono);">
+        Words
+      </p>
+      <h1
+        class="font-heading font-bold text-brand-white mb-3"
+        style="font-family: var(--font-heading); font-size: clamp(2.5rem, 6vw, 4.5rem);"
+      >
+        Writing
+      </h1>
+      <p class="text-brand-grey-400 text-lg">
+        Observations. Mostly true.
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container-site max-w-2xl">
+      {posts.length > 0 ? (
+        <div>
+          {posts.map((post) => (
+            <WritingCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div>
+          <p class="text-brand-white font-bold text-2xl mb-3" style="font-family: var(--font-heading);">
+            Nothing here yet.
+          </p>
+          <p class="text-brand-grey-400">
+            It's coming. The thoughts exist, they just haven't been filed properly.
+          </p>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBanner from '../components/sections/CtaBanner.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="Matt Keenan is a stand-up comedian based in Toronto. Observational, deadpan, and occasionally sounds like accidental wisdom."
+>
+  <!-- Page header with short bio -->
+  <div class="section bg-brand-black border-b border-brand-grey-700">
+    <div class="container-site">
+      <!-- Eyebrow -->
+      <p class="text-brand-red text-xs uppercase tracking-widest mb-6" style="font-family: var(--font-mono);">
+        About
+      </p>
+
+      <!-- Short bio in large type -->
+      <p
+        class="text-brand-grey-100 max-w-2xl leading-relaxed"
+        style="font-size: clamp(1.25rem, 3vw, 1.75rem); font-family: var(--font-heading); font-weight: 700; line-height: 1.4;"
+      >
+        Matt Keenan is a stand-up comedian based in Toronto. His comedy is
+        observational, deadpan, and occasionally sounds like accidental wisdom.
+        He's been performing long enough to have opinions about it.
+      </p>
+    </div>
+  </div>
+
+  <!-- Photo placeholder -->
+  <div class="bg-brand-grey-900 border-b border-brand-grey-700">
+    <div class="container-site py-0">
+      <div
+        class="w-full aspect-[16/7] bg-brand-grey-700 flex items-center justify-center"
+        aria-label="Photo of Matt Keenan"
+      >
+        <!-- Replace this div with an <img> tag once a photo is available -->
+        <p class="text-brand-grey-400 text-sm" style="font-family: var(--font-mono);">[Photo]</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Long bio -->
+  <section class="section border-b border-brand-grey-700">
+    <div class="container-site">
+      <div class="max-w-2xl mx-auto flex flex-col gap-6 text-brand-grey-100 text-base leading-loose">
+        <p>
+          Matt Keenan started doing stand-up for the same reason most people do: he had things
+          to say and couldn't figure out a more normal outlet for them.
+        </p>
+        <p>
+          His material tends to sit in the space between the obvious thing everyone is thinking
+          and the slightly uncomfortable truth nobody wanted to say out loud. It's observational.
+          It's deadpan. Occasionally it sounds like something a person would say if they were
+          trying to explain modern life to someone who had just woken up from a twenty-year sleep
+          and needed a reasonable update.
+        </p>
+        <p>
+          He's performed at clubs and festivals across the country and has spent enough time on
+          stage to understand that the best bits come from the places where nothing quite adds up
+          — which, based on available data, is most places.
+        </p>
+        <p>
+          He lives in Toronto. He is working on more material.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fast facts -->
+  <section class="section-sm border-b border-brand-grey-700">
+    <div class="container-site">
+      <dl class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-2xl">
+        {[
+          { term: 'Based in', def: 'Toronto, ON' },
+          { term: 'Performs', def: 'Stand-up comedy' },
+          { term: 'Also does', def: 'Corporate events, private shows, writing' },
+        ].map(({ term, def }) => (
+          <div>
+            <dt class="text-brand-grey-400 text-xs uppercase tracking-widest mb-1" style="font-family: var(--font-mono);">
+              {term}
+            </dt>
+            <dd class="text-brand-white text-base font-bold" style="font-family: var(--font-heading);">
+              {def}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- CTA row -->
+  <section class="section-sm">
+    <div class="container-site">
+      <div class="flex flex-wrap gap-4">
+        <a href="/media" class="btn btn-primary">Watch clips</a>
+        <a href="/contact" class="btn btn-ghost">Book Matt</a>
+        <a href="/press" class="btn btn-ghost">Press Kit</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Want Matt at your event?"
+    body="Corporate, club, festival, or something that doesn't fit a category — reach out."
+    primaryLabel="Get in touch"
+    primaryHref="/contact"
+    secondaryLabel="View Press Kit"
+    secondaryHref="/press"
+  />
+</BaseLayout>

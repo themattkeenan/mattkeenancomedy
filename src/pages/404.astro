@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found"
+  description="This page doesn't exist."
+  noindex={true}
+>
+  <div class="section min-h-[70vh] flex items-center">
+    <div class="container-site">
+      <p
+        class="text-brand-red font-bold mb-4"
+        style="font-family: var(--font-mono); font-size: 6rem; line-height: 1; opacity: 0.3;"
+        aria-hidden="true"
+      >
+        404
+      </p>
+      <h1
+        class="font-heading font-bold text-brand-white mb-3"
+        style="font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 3.5rem);"
+      >
+        This page doesn't exist.
+      </h1>
+      <p class="text-brand-grey-100 text-lg max-w-sm mb-8">
+        Honestly, I'm impressed you got here.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="/" class="btn btn-primary">Go home</a>
+        <a href="/media" class="btn btn-ghost">Watch something</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

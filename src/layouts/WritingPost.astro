@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  post: CollectionEntry<'writing'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate } = post.data;
+
+const formattedDate = pubDate.toLocaleDateString('en-CA', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={description} ogType="article">
+  <article class="section">
+    <div class="container-site">
+      <!-- Header -->
+      <header class="mb-12 pb-12 border-b border-brand-grey-700">
+        <a href="/writing" class="link-arrow text-brand-grey-400 hover:text-brand-white text-sm mb-8 inline-flex items-center gap-2">
+          ← Writing
+        </a>
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-brand-white mt-6 mb-4"
+          style="font-family: var(--font-heading);"
+        >
+          {title}
+        </h1>
+        <time
+          datetime={pubDate.toISOString()}
+          class="text-sm text-brand-grey-400"
+          style="font-family: var(--font-mono);"
+        >
+          {formattedDate}
+        </time>
+      </header>
+
+      <!-- Body -->
+      <div class="prose prose-invert prose-lg max-w-none
+        prose-headings:font-heading prose-headings:text-brand-white
+        prose-p:text-brand-grey-100 prose-p:leading-relaxed
+        prose-a:text-brand-red prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-brand-white
+        prose-blockquote:border-brand-red prose-blockquote:text-brand-grey-100">
+        <slot />
+      </div>
+
+      <!-- Footer nav -->
+      <div class="mt-16 pt-8 border-t border-brand-grey-700">
+        <a href="/writing" class="link-arrow">← Back to Writing</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

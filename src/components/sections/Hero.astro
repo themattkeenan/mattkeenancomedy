@@ -1,0 +1,71 @@
+---
+// Hero — the opening statement. Full viewport. No mercy.
+---
+
+<section class="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center overflow-hidden bg-brand-black">
+  <!-- Dot grid texture — subtle -->
+  <div class="absolute inset-0 bg-dot-grid opacity-20 pointer-events-none"></div>
+
+  <!-- Red accent line — top left -->
+  <div class="absolute top-0 left-0 w-24 h-1 bg-brand-red"></div>
+
+  <div class="container-site relative z-10 py-16">
+    <!-- Eyebrow -->
+    <p
+      class="text-brand-red text-sm uppercase tracking-widest mb-6 animate-fade-in"
+      style="font-family: var(--font-mono); animation-delay: 0.1s; opacity: 0; animation-fill-mode: forwards;"
+    >
+      Stand-up comedian
+    </p>
+
+    <!-- Main headline -->
+    <h1
+      class="font-heading font-extrabold text-brand-white leading-none mb-6 animate-fade-in"
+      style="
+        font-family: var(--font-heading);
+        font-size: clamp(3.5rem, 10vw, 8rem);
+        letter-spacing: -0.03em;
+        animation-delay: 0.2s;
+        opacity: 0;
+        animation-fill-mode: forwards;
+      "
+    >
+      Comedian.<br />
+      <span class="text-brand-red">Based on</span><br />
+      a true story.
+    </h1>
+
+    <!-- Supporting line -->
+    <p
+      class="text-brand-grey-100 text-lg md:text-xl max-w-lg mb-10 leading-relaxed animate-fade-in"
+      style="animation-delay: 0.35s; opacity: 0; animation-fill-mode: forwards;"
+    >
+      Touring nationally. Making sense of things that don't.
+    </p>
+
+    <!-- CTA row -->
+    <div
+      class="flex flex-wrap items-center gap-4 animate-fade-in"
+      style="animation-delay: 0.5s; opacity: 0; animation-fill-mode: forwards;"
+    >
+      <a href="#media" class="btn btn-primary">
+        Watch ↓
+      </a>
+      <a href="/contact" class="btn btn-ghost">
+        Book Matt
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-brand-grey-400 animate-fade-in"
+    style="animation-delay: 0.9s; opacity: 0; animation-fill-mode: forwards;"
+    aria-hidden="true"
+  >
+    <span class="text-xs tracking-widest uppercase" style="font-family: var(--font-mono);">Scroll</span>
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M8 4v16M2 14l6 6 6-6" />
+    </svg>
+  </div>
+</section>

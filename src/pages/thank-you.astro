@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getStartHereClip } from '../data/media';
+
+const clip = getStartHereClip();
+---
+
+<BaseLayout
+  title="Message received"
+  description="Thanks for reaching out."
+  noindex={true}
+>
+  <div class="section min-h-[60vh] flex items-center">
+    <div class="container-site">
+      <p class="text-brand-red text-xs uppercase tracking-widest mb-4" style="font-family: var(--font-mono);">
+        Got it
+      </p>
+      <h1
+        class="font-heading font-bold text-brand-white mb-4"
+        style="font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 3.5rem);"
+      >
+        Message received.
+      </h1>
+      <p class="text-brand-grey-100 text-lg max-w-md mb-8">
+        Thanks for reaching out. I'll get back to you within a week.
+        Sometimes sooner. It depends on what's happening.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="/" class="btn btn-ghost">← Go home</a>
+        {clip && (
+          <a href="/media" class="btn btn-ghost-red">Watch something →</a>
+        )}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

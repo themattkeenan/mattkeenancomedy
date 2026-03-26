@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VideoCard from '../components/ui/VideoCard.astro';
+import { credits, pressQuotes, headshots, pressKitPdf, shortBio, longBio } from '../data/press';
+import { media } from '../data/media';
+import { site } from '../config/site';
+
+// Pick up to 2 featured clips for the press page
+const pressClips = media.filter((m) => m.featured).slice(0, 2);
+const hasPdf = !!pressKitPdf;
+---
+
+<BaseLayout
+  title="Press Kit"
+  description="Press kit and EPK for comedian Matt Keenan. Bios, headshots, clips, and booking contact."
+>
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="container-site">
+      <p class="text-brand-red text-xs uppercase tracking-widest mb-4" style="font-family: var(--font-mono);">
+        Bookers & Press
+      </p>
+      <h1
+        class="font-heading font-bold text-brand-white mb-3"
+        style="font-family: var(--font-heading); font-size: clamp(2.5rem, 6vw, 4.5rem);"
+      >
+        Press Kit
+      </h1>
+      <p class="text-brand-grey-400 text-lg max-w-lg">
+        Everything you need to write about me, book me, or pretend you've seen my set.
+        Formatted correctly and everything.
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container-site">
+
+      <!-- Bios + Downloads (two-column) -->
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-16">
+        <!-- Bios (60%) -->
+        <div class="lg:col-span-3 flex flex-col gap-8">
+          <!-- Short bio -->
+          <div>
+            <p class="text-brand-grey-400 text-xs uppercase tracking-widest mb-3" style="font-family: var(--font-mono);">
+              Short bio
+            </p>
+            <p class="text-brand-grey-100 text-base leading-relaxed border-l-2 border-brand-red pl-4">
+              {shortBio}
+            </p>
+          </div>
+
+          <!-- Long bio -->
+          <div>
+            <p class="text-brand-grey-400 text-xs uppercase tracking-widest mb-3" style="font-family: var(--font-mono);">
+              Long bio
+            </p>
+            <div class="text-brand-grey-100 text-base leading-relaxed flex flex-col gap-4">
+              {longBio.split('\n\n').map((para) => (
+                <p>{para}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Downloads + Contact (40%) -->
+        <div class="lg:col-span-2 flex flex-col gap-6">
+          <div class="card p-6 flex flex-col gap-4">
+            <p class="text-brand-grey-400 text-xs uppercase tracking-widest" style="font-family: var(--font-mono);">
+              Downloads
+            </p>
+
+            {/* Headshots */}
+            {headshots.length > 0 ? (
+              headshots.map((shot) => (
+                <a
+                  href={`/images/headshots/${shot.filename}`}
+                  download
+                  class="btn btn-ghost w-full justify-start text-sm"
+                >
+                  ↓ {shot.downloadLabel}
+                </a>
+              ))
+            ) : (
+              <p class="text-brand-grey-400 text-sm italic">
+                Headshots available on request — <a href={`mailto:${site.pressEmail}`} class="text-brand-red hover:underline">email us</a>.
+              </p>
+            )}
+
+            {/* Press kit PDF */}
+            {hasPdf && (
+              <a
+                href={pressKitPdf}
+                download
+                class="btn btn-primary w-full justify-start text-sm"
+              >
+                ↓ Download Full Press Kit (PDF)
+              </a>
+            )}
+          </div>
+
+          <!-- Press contact -->
+          <div class="card p-6 flex flex-col gap-3">
+            <p class="text-brand-grey-400 text-xs uppercase tracking-widest" style="font-family: var(--font-mono);">
+              Press contact
+            </p>
+            <p class="text-brand-grey-100 text-sm leading-relaxed">
+              For interview requests, press features, or last-minute panics:
+            </p>
+            <a href={`mailto:${site.pressEmail}`} class="text-brand-red hover:underline text-sm font-bold">
+              {site.pressEmail}
+            </a>
+            <p class="text-brand-grey-400 text-xs">
+              Response time: within 48 hours for press inquiries.
+            </p>
+          </div>
+
+          <!-- Booking contact -->
+          <div class="card p-6 flex flex-col gap-3">
+            <p class="text-brand-grey-400 text-xs uppercase tracking-widest" style="font-family: var(--font-mono);">
+              Booking
+            </p>
+            <a href="/contact" class="btn btn-ghost-red text-sm">
+              Booking inquiry form →
+            </a>
+            <a href={`mailto:${site.email}`} class="text-brand-grey-400 text-xs hover:text-brand-white transition-colors">
+              or {site.email}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notable credits -->
+      {credits.length > 0 && (
+        <div class="mb-16 pb-16 border-b border-brand-grey-700">
+          <p class="text-brand-grey-400 text-xs uppercase tracking-widest mb-6" style="font-family: var(--font-mono);">
+            Notable performances & appearances
+          </p>
+          <ul class="flex flex-wrap gap-3">
+            {credits.map((credit) => (
+              <li>
+                <span class="px-3 py-1.5 border border-brand-grey-700 text-brand-grey-100 text-sm">
+                  {credit.venue}{credit.year ? ` (${credit.year})` : ''}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <!-- Press quotes -->
+      {pressQuotes.length > 0 && (
+        <div class="mb-16 pb-16 border-b border-brand-grey-700">
+          <p class="text-brand-grey-400 text-xs uppercase tracking-widest mb-6" style="font-family: var(--font-mono);">
+            Press
+          </p>
+          <div class="flex flex-col gap-6">
+            {pressQuotes.map((quote) => (
+              <blockquote class="border-l-2 border-brand-red pl-6">
+                <p class="text-brand-grey-100 text-lg italic mb-2">"{quote.quote}"</p>
+                <footer class="text-brand-grey-400 text-sm">
+                  — {quote.publication || quote.source}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Clips for press -->
+      {pressClips.length > 0 && (
+        <div>
+          <p class="text-brand-grey-400 text-xs uppercase tracking-widest mb-6" style="font-family: var(--font-mono);">
+            Clips
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {pressClips.map((clip) => (
+              <VideoCard clip={clip} />
+            ))}
+          </div>
+        </div>
+      )}
+
+    </div>
+  </div>
+</BaseLayout>

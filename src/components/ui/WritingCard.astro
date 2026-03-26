@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'writing'>;
+}
+
+const { post } = Astro.props;
+
+const formattedDate = post.data.pubDate.toLocaleDateString('en-CA', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="group py-6 border-b border-brand-grey-700 last:border-0">
+  <a href={`/writing/${post.id}`} class="block no-underline hover:no-underline">
+    <div class="flex items-start justify-between gap-4">
+      <div class="flex-1">
+        <h2
+          class="text-brand-white font-bold text-lg group-hover:text-brand-red transition-colors duration-200 mb-2"
+          style="font-family: var(--font-heading);"
+        >
+          {post.data.title}
+        </h2>
+        {post.data.description && (
+          <p class="text-brand-grey-400 text-sm leading-relaxed line-clamp-2">
+            {post.data.description}
+          </p>
+        )}
+      </div>
+      <time
+        datetime={post.data.pubDate.toISOString()}
+        class="flex-shrink-0 text-brand-grey-400 text-xs whitespace-nowrap pt-1"
+        style="font-family: var(--font-mono);"
+      >
+        {formattedDate}
+      </time>
+    </div>
+  </a>
+</article>

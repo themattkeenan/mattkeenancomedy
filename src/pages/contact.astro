@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ui/ContactForm.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Book Matt Keenan for stand-up comedy. Clubs, corporate events, festivals, and private shows."
+>
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="container-site">
+      <p class="text-brand-red text-xs uppercase tracking-widest mb-4" style="font-family: var(--font-mono);">
+        Reach out
+      </p>
+      <h1
+        class="font-heading font-bold text-brand-white mb-3"
+        style="font-family: var(--font-heading); font-size: clamp(2.5rem, 6vw, 4.5rem);"
+      >
+        Contact
+      </h1>
+      <p class="text-brand-grey-400 text-lg">
+        I check this. Not constantly, but enough.
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container-site">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+
+        <!-- Form (60%) -->
+        <div class="lg:col-span-3">
+          <p class="text-brand-grey-400 text-xs uppercase tracking-widest mb-2" style="font-family: var(--font-mono);">
+            Booking inquiry
+          </p>
+          <h2 class="text-brand-white font-bold text-xl mb-6" style="font-family: var(--font-heading);">
+            Fill this out and I'll get back to you.
+          </h2>
+          <ContactForm />
+        </div>
+
+        <!-- Sidebar (40%) -->
+        <div class="lg:col-span-2 flex flex-col gap-6">
+          <!-- General contact -->
+          <div class="card p-6 flex flex-col gap-3">
+            <p class="text-brand-grey-400 text-xs uppercase tracking-widest" style="font-family: var(--font-mono);">
+              General
+            </p>
+            <p class="text-brand-grey-100 text-sm leading-relaxed">
+              For anything that doesn't fit the form — collabs, questions,
+              general correspondence — reach out directly:
+            </p>
+            <a href={`mailto:${site.email}`} class="text-brand-red hover:underline text-sm font-bold">
+              {site.email}
+            </a>
+          </div>
+
+          <!-- Press -->
+          <div class="card p-6 flex flex-col gap-3">
+            <p class="text-brand-grey-400 text-xs uppercase tracking-widest" style="font-family: var(--font-mono);">
+              Press
+            </p>
+            <p class="text-brand-grey-100 text-sm leading-relaxed">
+              For interviews, press features, or anything media-related:
+            </p>
+            <a href={`mailto:${site.pressEmail}`} class="text-brand-red hover:underline text-sm font-bold">
+              {site.pressEmail}
+            </a>
+            <a href="/press" class="link-arrow text-sm mt-1">
+              View Press Kit →
+            </a>
+          </div>
+
+          <!-- Response time note -->
+          <div class="px-6 py-4 border-l-2 border-brand-grey-700">
+            <p class="text-brand-grey-400 text-sm leading-relaxed">
+              Response time: usually within a week. Sometimes sooner.
+              It depends on what's happening.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</BaseLayout>
