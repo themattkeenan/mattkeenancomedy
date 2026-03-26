@@ -6,7 +6,7 @@ export const site = {
   url: 'https://mattkeenan.com',
   email: 'hello@mattkeenan.com',
   pressEmail: 'press@mattkeenan.com',
-  location: 'Toronto, ON',
+  location: 'Saint John, NB',
   socials: {
     instagram: 'https://instagram.com/mattkeenan',
     youtube: 'https://youtube.com/@mattkeenan',

@@ -44,7 +44,7 @@ export const headshots: HeadshotAsset[] = [
 export const pressKitPdf = '/downloads/matt-keenan-press-kit.pdf';
 // Set to '' or undefined if no PDF exists yet
 
-export const shortBio = `Matt Keenan is a stand-up comedian based in Toronto. His comedy is observational, deadpan, and occasionally sounds like accidental wisdom. He's been performing long enough to have opinions about it.`;
+export const shortBio = `Matt Keenan is a stand-up comedian based in Saint John, NB. His comedy is observational, deadpan, and occasionally sounds like accidental wisdom. He's been performing long enough to have opinions about it.`;
 
 export const longBio = `Matt Keenan started doing stand-up for the same reason most people do: he had things to say and couldn't figure out a more normal outlet for them.
 
@@ -52,4 +52,4 @@ His material tends to sit in the space between the obvious thing everyone is thi
 
 He's performed at clubs and festivals across the country and has spent enough time on stage to understand that the best bits come from the places where nothing quite adds up — which, based on available data, is most places.
 
-He lives in Toronto. He is working on more material.`;
+He lives in Saint John, NB. He is working on more material.`;
